@@ -1,3 +1,5 @@
+package dovsynnikov;
+
 public class Cell {
     public int y;
     public int x;
