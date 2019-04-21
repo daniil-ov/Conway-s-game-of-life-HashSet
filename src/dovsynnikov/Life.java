@@ -3,20 +3,23 @@ package dovsynnikov;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.*;
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class Life {
 
-    private static int widthField = 700;
-    private static int heightField = 700;
+    private static int widthField = 10000;
+    private static int heightField = 100000;
 
-    private static int centerX = 0;
-    private static int centerY = 0;
+    private static int centerX = 5000;
+    private static int centerY = -50000;
 
-    private static HashSet<Cell> currentLife = new HashSet<>();
-    private static HashSet<Cell> nextStepLife = new HashSet<>();
-    private static HashSet<Cell> neighborhoodOfCells = new HashSet<>();
+    public static HashSet<Cell> currentLife = new HashSet<>();
+    public static HashSet<Cell> nextStepLife = new HashSet<>();
+    public static HashSet<Cell> neighborhoodOfCells = new HashSet<>();
+
+    static String fileName = "caterpillar.rle";
 
     public static void main(String[] args) {
 
@@ -26,25 +29,35 @@ public class Life {
 
         createField();
         runLife();
-    }
-
-    private static void createField() {
-
-        //глайдер
-        currentLife.add(new Cell(0, 0));
-        currentLife.add(new Cell(0, 1));
-        currentLife.add(new Cell(0, 2));
-        currentLife.add(new Cell(1, 2));
-        currentLife.add(new Cell(2, 1));
-    }
-
-    private static void runLife() {
 
         //вывод в консоль начальных точек
         Iterator<Cell> i = currentLife.iterator();
         while (i.hasNext()) {
             System.out.println(i.next().toString());
         }
+        drawCurrentLife();
+    }
+
+    private static void createField() {
+
+        ReadFile.read(fileName, Charset.defaultCharset());
+
+        //глайдер
+        /*currentLife.add(new Cell(0, 0));
+        currentLife.add(new Cell(0, 1));
+        currentLife.add(new Cell(0, 2));
+        currentLife.add(new Cell(1, 2));
+        currentLife.add(new Cell(2, 1));*/
+    }
+
+
+    private static void runLife() {
+
+        //вывод в консоль начальных точек
+        /*Iterator<Cell> i = currentLife.iterator();
+        while (i.hasNext()) {
+            System.out.println(i.next().toString());
+        }*/
 
         while (true) {
 
@@ -53,7 +66,7 @@ public class Life {
             moveField();
 
             //задержка 0.5 сек
-            StdDraw.pause(500);
+            //StdDraw.pause(500);
         }
     }
 
@@ -109,7 +122,7 @@ public class Life {
 
         for (Cell c : currentLife) {
 
-            StdDraw.filledSquare(c.x, c.y, 0.1);
+            StdDraw.filledSquare(c.x, c.y, 0.000001);
         }
 
         StdDraw.show();
